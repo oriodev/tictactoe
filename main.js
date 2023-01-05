@@ -42,10 +42,10 @@ const players = (symbol) => {
                     console.log(gameBoard.board);
                     gameBoard.populateBoxes();
 
-                    if (turn == "crosses") {
-                        turn = "noughts";
+                    if (gamePlay.turn == crosses) {
+                        gamePlay.turn = noughts;
                     } else {
-                        turn = "crosses";
+                        gamePlay.turn = crosses;
                     }
 
                 }
@@ -62,24 +62,16 @@ const players = (symbol) => {
 
 // GAME OBJECT
 
+const noughts = players("O");
+const crosses = players("X");
+
 const gamePlay = ( () => {
 
     let playing = true;
 
-    const noughts = players("O");
-    const crosses = players("X");
+    let turn = crosses;
 
-    let turn = "crosses";
-
-    const gameLoop = () => {
-
-        while (playing == true) {
-
-            if (slotsFilled() == true) {
-                console.log("game over");
-            }
-
-    }
+    turn.makeMove();
 
     const slotsFilled = () => {
 
@@ -93,11 +85,19 @@ const gamePlay = ( () => {
 
     }
 
+    const gameLoop = () => {
+
+        
+
+    }
+
     return {
         gameLoop
     };
 
 
 })();
+
+
 
 gamePlay.gameLoop();
