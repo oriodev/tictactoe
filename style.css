@@ -1,0 +1,59 @@
+:root {
+    --accent-colour: #CCCCCC;
+}
+
+.container {
+    display: grid;
+    grid-template: 1fr 1fr 1fr / 1fr 1fr 1fr;
+    width: 500px;
+    height: 500px;
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.container > div {
+    border: 5px solid var(--accent-colour);
+    text-align: center;
+    font-weight: 900;
+    font-size: 100px;
+    line-height: 164px;
+    font-family: 'Raleway', sans-serif;
+}
+
+.container .a1 {
+    border-top: none;
+    border-left: none;
+}
+
+.container .a2 {
+    border-top: none;
+}
+
+.container .a3 {
+    border-top: none;
+    border-right: none;
+}
+
+.container .b1 {
+    border-left: none;
+}
+
+.container .b3 {
+    border-right: none;
+}
+
+.container .c1 {
+    border-left: none;
+    border-bottom: none;
+}
+
+.container .c2 {
+    border-bottom: none;
+}
+
+.container .c3 {
+    border-right: none;
+    border-bottom: none;
+}
