@@ -1,20 +1,9 @@
-// HOLDS THE BOARD
+// GAMEBOARD
 
 const gameBoard = ( () => {
 
     let board = ["", "", "", "", "", "", "", "", ""];
-
-    return {
-        board
-    };
-})();
-
-// HANDLES THE DISPLAY
-
-const displayController = ( () => {
-
     let allBoxes = document.querySelectorAll('[id=box]');
-    let board = gameBoard.board;
 
     const populateBoxes = () => {
         for (let i = 0; i < allBoxes.length; i++) {
@@ -30,7 +19,8 @@ const displayController = ( () => {
 
     return {
         allBoxes,
-        populateBoxes
+        populateBoxes,
+        board
     };
 
 })();
@@ -70,13 +60,13 @@ const players = (symbol) => {
     };
 };
 
+// GAME OBJECT
+
 const gamePlay = ( () => {
 
     let turn = "crosses";
 
-    const startGame = () => {
-        
-    }
+    // make a game loop
 
     return {
         turn
