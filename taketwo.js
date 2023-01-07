@@ -109,8 +109,8 @@ const game = ( () => {
     let allBoxes = document.querySelectorAll('[id=box]');
 
     // init player objects
-    const crosses = players("X", "crosses");
-    const noughts = players("O", "noughts");
+    const crosses = players("X", "PLAYER ONE");
+    const noughts = players("O", "PLAYER TWO");
 
     // set turn
     let turn = crosses;
@@ -138,6 +138,12 @@ const game = ( () => {
         return true;
     }
 
+    // display text
+    const displayText = (winner) => {
+        let displayArea = document.querySelector('[class=winnerDisplay');
+        displayArea.textContent = (winner);
+    }
+
     // the game loop function
 
     const gameLoop = () => {
@@ -146,12 +152,11 @@ const game = ( () => {
         for (let i = 0; i < allBoxes.length; i++) {
             allBoxes[i].addEventListener("click", function(e) {
 
-                if (play == true) {
+                if (play == true && board[i] == "") {
 
                     // add turn to board array
-                    if (board[i] == "") {
-                        board[i] = turn.symbol;
-                    }
+                    board[i] = turn.symbol;
+
 
                     // add to player count
                     turn.addScore(i);
@@ -163,9 +168,11 @@ const game = ( () => {
         
                     if (turn.winStatus() == true) {
                         console.log(turn.name + " won!");
+                        displayText(turn.name + " WINS");
                         play = false;
                     } else if (boardFull() == true) {
                         console.log("tie!");
+                        displayText("TIE!");
                         play = false;
                     } else {
                         turn == crosses ? turn = noughts : turn = crosses;
@@ -183,6 +190,9 @@ const game = ( () => {
         for (let i = 0; i < allBoxes.length; i++) {
             allBoxes[i].textContent = "";
         }
+
+        displayText("");
+
         crosses.resetScore();
         noughts.resetScore();
         play = true;
