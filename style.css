@@ -1,5 +1,11 @@
 :root {
-    --accent-colour: #CCCCCC;
+    --accent-colour: #2f2f2f;
+    --background-colour: black;
+}
+
+
+body {
+    background-color: var(--background-colour);
 }
 
 .container {

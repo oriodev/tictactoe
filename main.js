@@ -2,7 +2,7 @@
 
 const gameBoard = ( () => {
 
-    let board = ["", "", "", "", "", "", "", "", ""];
+    let board = ["X", "O", "", "", "", "", "", "", ""];
     let allBoxes = document.querySelectorAll('[id=box]');
 
     const populateBoxes = () => {
@@ -10,9 +10,9 @@ const gameBoard = ( () => {
             allBoxes[i].textContent = board[i];
 
             if (board[i] == "X") {
-                allBoxes[i].style.color = "#3E4269";
+                allBoxes[i].style.color = "white";
             } else {
-                allBoxes[i].style.color = "#710000";
+                allBoxes[i].style.color = "rgb(195, 195, 195)";
             }
         }
     }
@@ -25,79 +25,77 @@ const gameBoard = ( () => {
 
 })();
 
-// PLAYER OBJECT
+// // PLAYER OBJECT
 
-const players = (symbol) => {
-
-    const makeMove = () => {
-
-        let allBoxes = gameBoard.allBoxes;
-
-        for (let i = 0; i < allBoxes.length; i++) {
-            allBoxes[i].addEventListener("click", function(event) {
-
-                if (gameBoard.board[i] == "") {
-
-                    gameBoard.board[i] = symbol;
-                    console.log(gameBoard.board);
-                    gameBoard.populateBoxes();
-
-                    if (gamePlay.turn == crosses) {
-                        gamePlay.turn = noughts;
-                    } else {
-                        gamePlay.turn = crosses;
-                    }
-
-                }
-            })
-        }
-
-    }
+// const player = ( () => {
 
 
-    return {
-        makeMove,
-    };
-};
+// });
 
-// GAME OBJECT
 
-const noughts = players("O");
-const crosses = players("X");
 
-const gamePlay = ( () => {
+// // GAME OBJECT
 
-    let playing = true;
+// const noughts = players("O");
+// const crosses = players("X");
 
-    let turn = crosses;
+// const gamePlay = ( () => {
 
-    turn.makeMove();
+//     let playing = true;
 
-    const slotsFilled = () => {
+//     let turn = crosses;
 
-        for (let i = 0; i < gameBoard.board.length; i++) {
-            if (gameBoard.board[i] == "") {
-                return false;
-            } else {
-                return true;
-            }
-        }
+//     turn.makeMove();
 
-    }
+//     const slotsFilled = () => {
 
-    const gameLoop = () => {
+//         for (let i = 0; i < gameBoard.board.length; i++) {
+//             if (gameBoard.board[i] == "") {
+//                 return false;
+//             } else {
+//                 return true;
+//             }
+//         }
 
+//     }
+
+//     const makeMove = () => {
+
+//         let allBoxes = gameBoard.allBoxes;
+
+//         for (let i = 0; i < allBoxes.length; i++) {
+//             allBoxes[i].addEventListener("click", function(event) {
+
+//                 if (gameBoard.board[i] == "") {
+
+//                     gameBoard.board[i] = symbol;
+//                     console.log(gameBoard.board);
+//                     gameBoard.populateBoxes();
+
+//                     if (gamePlay.turn == crosses) {
+//                         gamePlay.turn = noughts;
+//                     } else {
+//                         gamePlay.turn = crosses;
+//                     }
+
+//                 }
+//             })
+//         }
+
+//     }
+
+//     const gameLoop = () => {
+
+                
         
+//     }
 
-    }
-
-    return {
-        gameLoop
-    };
-
-
-})();
+//     return {
+//         gameLoop
+//     };
 
 
+// })();
 
-gamePlay.gameLoop();
+// //gamePlay.gameLoop();
+gameBoard.populateBoxes();
