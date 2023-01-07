@@ -90,7 +90,11 @@ const game = ( () => {
                     gameBoard.populateBoxes(gameBoard.board);
                 }
 
-                
+                if (gameEnd() == true) {
+                    console.log("game over");
+                } else {
+                    playerTurn == crosses ? playerTurn = noughts : playerTurn = crosses;
+                }
                 
             }
 
@@ -102,6 +106,8 @@ const game = ( () => {
 
         // reset the board
         gameBoard.board = ["", "", "", "", "", "", "", "", ""];
+        gameBoard.populateBoxes(gameBoard.board);
+        console.log(gameBoard.board);
         makeMove();
 
     }
