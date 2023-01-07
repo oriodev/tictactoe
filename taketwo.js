@@ -10,6 +10,19 @@ const players = (symbol, name) => {
     let col1 = 0; // 0 3 6
     let col2 = 0; // 1 4 7
     let col3 = 0; // 2 5 8
+    let dia1 = 0;
+    let dia2 = 0;
+
+    const resetScore = () => {
+        row1 = 0; // 0 1 2
+        row2 = 0; // 3 4 5
+        row3 = 0; // 6 7 8
+        col1 = 0; // 0 3 6
+        col2 = 0; // 1 4 7
+        col3 = 0; // 2 5 8
+        dia1 = 0; // 0 4 8
+        dia2 = 0; // 2 4 6
+    }
 
     const addScore = (i) => {
         
@@ -17,6 +30,7 @@ const players = (symbol, name) => {
             case 0:
                 row1++;
                 col1++;
+                dia1++;
                 break;
             case 1:
                 row1++;
@@ -25,6 +39,7 @@ const players = (symbol, name) => {
             case 2:
                 row1++;
                 col3++;
+                dia2++;
                 break;
             case 3:
                 row2++;
@@ -33,6 +48,8 @@ const players = (symbol, name) => {
             case 4:
                 row2++;
                 col2++;
+                dia1++;
+                dia2++;
                 break;
             case 5:
                 row2++;
@@ -41,6 +58,7 @@ const players = (symbol, name) => {
             case 6:
                 row3++;
                 col1++;
+                dia2++;
                 break;
             case 7:
                 row3++;
@@ -49,6 +67,7 @@ const players = (symbol, name) => {
             case 8:
                 row3++;
                 col3++;
+                dia1++;
                 break;
         }
 
@@ -58,7 +77,7 @@ const players = (symbol, name) => {
     
 
     const winStatus = () => {
-        if (row1 == 3 || row2 == 3 || row3 == 3 || col1 == 3 || col2 == 3 || col3 == 3) {
+        if (row1 == 3 || row2 == 3 || row3 == 3 || col1 == 3 || col2 == 3 || col3 == 3 || dia1 == 3 || dia2 == 3) {
             return true;
         } else {
             return false;
@@ -75,7 +94,8 @@ const players = (symbol, name) => {
         winStatus,
         addScore,
         name,
-        symbol
+        symbol,
+        resetScore
     }
 
 }
@@ -92,6 +112,10 @@ const game = ( () => {
     const crosses = players("X", "crosses");
     const noughts = players("O", "noughts");
 
+    // set turn
+    let turn = crosses;
+    let play = true;
+
     // populate board function
 
     const populateBoard = () => {
@@ -103,14 +127,6 @@ const game = ( () => {
             } else {
                 allBoxes[i].style.color = "rgb(195, 195, 195)";
             }
-        }
-    }
-
-    // board reset function
-    const resetBoard = () => {
-        board = ["", "", "", "", "", "", "", "", ""];
-        for (let i = 0; i < allBoxes.length; i++) {
-            allBoxes[i].textContent = "";
         }
     }
 
@@ -126,60 +142,63 @@ const game = ( () => {
 
     const gameLoop = () => {
 
-    // set turn
-    let turn = crosses;
-    let play = true;
+        // the event listener
+        for (let i = 0; i < allBoxes.length; i++) {
+            allBoxes[i].addEventListener("click", function(e) {
 
-    // the event listener
-    for (let i = 0; i < allBoxes.length; i++) {
-        allBoxes[i].addEventListener("click", function(e) {
+                if (play == true) {
 
-            if (play == true) {
+                    // add turn to board array
+                    if (board[i] == "") {
+                        board[i] = turn.symbol;
+                    }
 
-                // add turn to board array
-                if (board[i] == "") {
-                    board[i] = turn.symbol;
+                    // add to player count
+                    turn.addScore(i);
+
+                    // add to screen
+                    populateBoard();
+
+                    // check for winner
+        
+                    if (turn.winStatus() == true) {
+                        console.log(turn.name + " won!");
+                        play = false;
+                    } else if (boardFull() == true) {
+                        console.log("tie!");
+                        play = false;
+                    } else {
+                        turn == crosses ? turn = noughts : turn = crosses;
+                    }
                 }
+            })
+        }
 
-                // add to player count
-                turn.addScore(i);
-
-                // add to screen
-                populateBoard();
-
-                // check for winner
-                console.log(turn.winStatus());
-                if (turn.winStatus() == true) {
-                    console.log(turn.name + " won!");
-                    play = false;
-
-
-                } else {
-                    turn == crosses ? turn = noughts : turn = crosses;
-                }
-
-                }
-            
-        })
     }
 
-}
+    // board reset function
+    const resetBoard = () => {
+        console.clear();
+        board = ["", "", "", "", "", "", "", "", ""];
+        for (let i = 0; i < allBoxes.length; i++) {
+            allBoxes[i].textContent = "";
+        }
+        crosses.resetScore();
+        noughts.resetScore();
+        play = true;
+        turn = crosses;
 
-return {
-    resetBoard,
-    gameLoop
-};
+    }
+
+    let btn = document.getElementById("btn");
+    btn.addEventListener('click', resetBoard);
+
+    return { gameLoop };
 
 })();
 
-let btn = document.getElementById("btn");
 
-btn.addEventListener("click", function(event) {
-    game.resetBoard();
-    game.gameLoop();
-});
-
-
+game.gameLoop();
 
 
 
