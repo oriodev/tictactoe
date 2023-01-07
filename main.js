@@ -5,7 +5,7 @@ const gameBoard = ( () => {
     let board = ["", "", "", "", "", "", "", "", ""];
     let allBoxes = document.querySelectorAll('[id=box]');
 
-    const populateBoxes = () => {
+    const populateBoxes = (board) => {
         for (let i = 0; i < allBoxes.length; i++) {
             allBoxes[i].textContent = board[i];
 
@@ -32,8 +32,11 @@ const players = (playerSymbol) => {
         console.log(`hi bitches, i'm ${playerSymbol}`);
     }
 
+    let symbol = playerSymbol;
+
     return {
-        sayHello
+        sayHello,
+        symbol
     };
 }
 
@@ -72,7 +75,9 @@ const game = ( () => {
     }
 
     // this adds an event listener to the boxes
-    const changeDom = (playerTurn) => {
+    const makeMove = () => {
+
+        let playerTurn = crosses;
 
         let allBoxes = gameBoard.allBoxes;
 
@@ -81,16 +86,15 @@ const game = ( () => {
                 
                 if (gameBoard.board[i] == "") {
                     gameBoard.board[i] = playerTurn.symbol;
-                    gameBoard.populateBoxes();
+                    console.log(gameBoard.board);
+                    gameBoard.populateBoxes(gameBoard.board);
                 }
+
+                
+                
             }
 
         )}
-    }
-
-    const makeMove = (playerTurn) => {
-        changeDom(playerTurn);
-        
     }
 
 
@@ -98,23 +102,7 @@ const game = ( () => {
 
         // reset the board
         gameBoard.board = ["", "", "", "", "", "", "", "", ""];
-
-        while (gameEnd() == false) {
-            console.log("game is running");
-            
-            // enter gameloop logic here
-
-            let turn = crosses;
-
-            // trying to make turns work idk        
-
-
-            // failsafe don't remove
-            gameBoard.board = ["X", "O", "X", "X", "X", "O", "O", "O", "X"];
-
-        }
-
-        console.log("we're on the other side of the actual loop"); 
+        makeMove();
 
     }
 

@@ -229,11 +229,13 @@ body {
 
 .container > div {
     border: 5px solid var(--accent-colour);
-    text-align: center;
     font-weight: 900;
-    font-size: 100px;
-    line-height: 164px;
+    font-size: 70px;
     font-family: 'Raleway', sans-serif;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .container .a1 {
