@@ -25,77 +25,60 @@ const gameBoard = ( () => {
 
 })();
 
-// // PLAYER OBJECT
+// GAME LOOP
 
-// const player = ( () => {
+const game = ( () => {
 
+    const gameWinner = () => {
+        // checks if someone has won
+    }
 
-// });
+    const boardFull = () => {
+        // checks if the board is full
 
+        for (let i = 0; i < gameBoard.board.length; i++) {
+            if (gameBoard.board[i] == "") {
+                return false;
+            } 
+        }
 
+        return true;
 
-// // GAME OBJECT
+    }
 
-// const noughts = players("O");
-// const crosses = players("X");
+    const gameEnd = () => {
+        // checks if gameWinner or boardFull are true
 
-// const gamePlay = ( () => {
-
-//     let playing = true;
-
-//     let turn = crosses;
-
-//     turn.makeMove();
-
-//     const slotsFilled = () => {
-
-//         for (let i = 0; i < gameBoard.board.length; i++) {
-//             if (gameBoard.board[i] == "") {
-//                 return false;
-//             } else {
-//                 return true;
-//             }
-//         }
-
-//     }
-
-//     const makeMove = () => {
-
-//         let allBoxes = gameBoard.allBoxes;
-
-//         for (let i = 0; i < allBoxes.length; i++) {
-//             allBoxes[i].addEventListener("click", function(event) {
-
-//                 if (gameBoard.board[i] == "") {
-
-//                     gameBoard.board[i] = symbol;
-//                     console.log(gameBoard.board);
-//                     gameBoard.populateBoxes();
-
-//                     if (gamePlay.turn == crosses) {
-//                         gamePlay.turn = noughts;
-//                     } else {
-//                         gamePlay.turn = crosses;
-//                     }
-
-//                 }
-//             })
-//         }
-
-//     }
-
-//     const gameLoop = () => {
-
-                
-        
-//     }
-
-//     return {
-//         gameLoop
-//     };
+        if (boardFull() == true) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
 
-// })();
+    const gameLoop = () => {
 
-// //gamePlay.gameLoop();
-gameBoard.populateBoxes();
+        console.log(gameBoard.board);
+        console.log("we're in gameLoop");
+        console.log(gameEnd());
+
+        while (gameEnd() == false) {
+            console.log("game is running");
+            
+            // enter gameloop logic here
+
+
+        }
+
+        console.log("we're on the other side of the actual loop");
+
+    }
+
+    return {
+        gameLoop
+    }
+
+})();
+
+game.gameLoop();
